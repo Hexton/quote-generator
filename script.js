@@ -7,20 +7,19 @@ const loader = document.getElementById('loader');
 
 let apiQuotes = [];
 
-// Show Loading
-function loading() {
+function showLoadingSpinner() {
   loader.hidden = false;
   quoteContainer.hidden = true;
 }
-// Hide loading
-function complete() {
+
+function removeLoadingSpinner() {
   loader.hidden = true;
   quoteContainer.hidden = false;
 }
 
 // Show new quote
 function newQuote() {
-  loading();
+  showLoadingSpinner();
   // Pick a random quote from apiQuote array
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
   // "Unknown" if author is null
@@ -36,12 +35,12 @@ function newQuote() {
     quoteText.classList.remove('long-quote');
   }
   quoteText.textContent = quote.text;
-  complete();
+  removeLoadingSpinner();
 }
 
 // Get quote from API
 async function getQuote() {
-  loading();
+  showLoadingSpinner();
   const apiUrl = 'https://type.fit/api/quotes';
   try {
     const response = await fetch(apiUrl);
